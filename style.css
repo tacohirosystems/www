@@ -13,6 +13,14 @@ h1,h2,h3,h4,h5,h6 {
   font-weight: bold;
 }
 
+h2,h3,h4,h5,h6 {
+  margin-bottom: 0!important;
+}
+
+mark {
+  padding: 0.05rem 0.10rem;
+}
+
 section:has(div > h1) > div {
   display: flex;
   align-items: center;
@@ -21,6 +29,10 @@ section:has(div > h1) > div {
   img {
     object-fit: cover;
   }
+}
+
+section > h2 + * {
+  margin-top: 0.25rem;
 }
 
 section {
@@ -48,7 +60,7 @@ section {
 
 @media (width >= 80rem) {
   section {
-    width: 30%;
+    width: 35%;
   }
 }
 
