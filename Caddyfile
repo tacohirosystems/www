@@ -1,0 +1,4 @@
+:8081 {
+  root * result
+  file_server
+}

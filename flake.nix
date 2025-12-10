@@ -39,6 +39,7 @@
               self.formatter.${system}
               nil
               nixpkgs-fmt
+              caddy
             ];
 
             env = { };
