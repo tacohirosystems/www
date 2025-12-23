@@ -49,7 +49,8 @@
       );
 
       packages = forEachSupportedSystem (
-        { pkgs, system }: {
+        { pkgs, system }: rec {
+          default = www;
           www = pkgs.stdenv.mkDerivation {
             version = "0.0.1";
             name = "www";
@@ -70,6 +71,7 @@
               find . -name '*.html' -execdir brotli --best {} -f \;
               find . -name '*.html' -execdir gzip --best --keep {} -f \;
               cp *.html* $out
+              cp -R about $out/
 
               # CSS
               esbuild ./assets/css/*.css --minify --outdir=$out/assets/css
