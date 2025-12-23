@@ -50,7 +50,7 @@
 
       packages = forEachSupportedSystem (
         { pkgs, system }: {
-          default = pkgs.stdenv.mkDerivation {
+          www = pkgs.stdenv.mkDerivation {
             version = "0.0.1";
             name = "www";
             src = ./.;
