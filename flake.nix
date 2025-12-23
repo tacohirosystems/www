@@ -55,18 +55,26 @@
             name = "www";
             src = ./.;
             buildInputs = [];
-            nativeBuildInputs = with pkgs; [ gzip brotli ];
+            nativeBuildInputs = with pkgs; [ gzip brotli esbuild minhtml imagemagick ];
 
             buildPhase = ''
               mkdir -p $out/assets/images
+              mkdir -p $out/assets/css
 
-              cp -R assets $out
-              cp *.html $out
+              # Images
+              cp -r assets/images $out/assets
+              mogrify -quality 8 -strip -resize 25x25 $out/assets/images/ceo.webp
 
-              ${pkgs.brotli}/bin/brotli --best $out/assets/css/*.css -f
-              ${pkgs.brotli}/bin/brotli --best $out/*.html -f
-              ${pkgs.gzip}/bin/gzip --best --keep $out/assets/css/*.css -f
-              ${pkgs.gzip}/bin/gzip --best --keep $out/*.html -f
+              # HTML
+              find . -name '*.html' -execdir minhtml --keep-closing-tags --minify-js --minify-css {} --output {} \;
+              find . -name '*.html' -execdir brotli --best {} -f \;
+              find . -name '*.html' -execdir gzip --best --keep {} -f \;
+              cp *.html* $out
+
+              # CSS
+              esbuild ./assets/css/*.css --minify --outdir=$out/assets/css
+              find $out/assets/css -name '*.css' -execdir brotli --best {} -f \;
+              find $out/assets/css -name '*.css' -execdir gzip --best --keep {} -f \;
             '';
           };
         }

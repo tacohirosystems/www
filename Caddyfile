@@ -1,4 +1,14 @@
+:8080 {
+  root * .
+  file_server {
+    precompressed br zstd gzip
+  }
+}
+
 :8081 {
   root * result
-  file_server
+
+  file_server {
+    precompressed br zstd gzip
+  }
 }
