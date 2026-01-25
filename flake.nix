@@ -77,6 +77,11 @@
               esbuild ./assets/css/*.css --minify --outdir=$out/assets/css
               find $out/assets/css -name '*.css' -execdir brotli --best {} -f \;
               find $out/assets/css -name '*.css' -execdir gzip --best --keep {} -f \;
+
+              # JS
+              cp -r ./assets/scripts $out/assets
+              find $out/assets/scripts -name '*.js' -execdir brotli --best {} -f \;
+              find $out/assets/scripts -name '*.js' -execdir gzip --best --keep {} -f \;
             '';
           };
         }
